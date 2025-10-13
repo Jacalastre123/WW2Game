@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WW2 Simulator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Funnel+Display:wght@300..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jersey+10&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgba(236, 221, 104, 0.7);
+            text-align: center;
+            font-family: rubik;
+            color: rgba(0,0,0,0.8)
+        }
+
+        .axis {
+            background-color: rgba(190,50, 30, 0.7);
+            
+        }
+
+        .ally {
+            background-color: rgba(20, 100, 200, 0.7);
+        }
+
+        div {
+            padding: 8px;
+            margin: 10px;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: rgba(255,255,255, 0.4);
+            border: 1.5px solid rgba(0, 0, 0, 0.4);
+            border-radius: 7px;
+        }
+
+        button:hover {
+            background-color: rgba(255,255,255, 0.6);
+            border-radius: 7px;
+        }
+
+        button:active {
+            background-color: rgba(200,200,200, 0.71);
+            border-radius: 7px;
+        }
+
+        dialog {
+            border-radius: 10px;
+            padding: 7px;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.95), rgba(200,200,200,0.85)) ;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <h1>WW2 Prep Sim</h1>
+    <nav>
+        <button onclick="fight()">Start Battle</button>
+        <button onclick="document.getElementById('helper').showModal(); playButton()">Help</button>
+         <button onclick="soundo(this)">Remove Sound</button>
+    </nav>
+    <div class="axis">
+        <h2>The Axis</h2>
+        <hr>
+        <nav class="germany">
+        <h3 id="value1">Score: 30</h3>
+        <h3>Germany</h3>
+        <button onclick="economy(this)">Economic Development +5</button>
+        <button onclick="recruitment(this)">Recruitment +10</button>
+        <button onclick="newTech(this)">Technological Research +1 tech</button>
+
+        </nav>
+        <nav class="italy">
+            <h3 id="value2">Score: 17</h3>
+        <h3>Italy</h3>
+        <button onclick="economy(this)">Economic Development +5</button>
+        <button onclick="recruitment(this)">Recruitment +10</button>
+        <button onclick="newTech(this)">Technological Research +1 tech</button>
+
+        </nav>
+        <nav class="japan">
+            <h3 id="value3">Score: 25</h3>
+        <h3>Japan</h3>
+        <button onclick="economy(this)">Economic Development +5</button>
+        <button onclick="recruitment(this)">Recruitment +10</button>
+        <button onclick="newTech(this)">Technological Research +1 tech</button>
+
+        </nav>
+    </div>
+
+    <div class="ally">
+        <h2>The Allies</h2>
+        <hr>
+        <nav class="UK">
+            <h3 id="value4">Score: 35</h3>
+        <h3>United Kingdom</h3>
+        <button onclick="economy(this)">Economic Development +5</button>
+        <button onclick="recruitment(this)">Recruitment +10</button>
+        <button onclick="newTech(this)">Technological Research +1 tech</button>
+
+        </nav>
+        <nav class="france">
+            <h3 id="value5">Score: 25</h3>
+        <h3>France</h3>
+        <button onclick="economy(this)">Economic Development +5</button>
+        <button onclick="recruitment(this)">Recruitment +10</button>
+        <button onclick="newTech(this)">Technological Research +1 tech</button>
+        </nav>
+        <nav class="china">
+            <h3 id="value6">Score: 12</h3>
+        <h3>China</h3>
+        <button onclick="economy(this)">Economic Development +5</button>
+        <button onclick="recruitment(this)">Recruitment +10</button>
+        <button onclick="newTech(this)">Technological Research +1 tech</button>
+        
+        </nav>
+    </div>
+
+    <dialog id="dialResult">
+        <h2 id="determine"></h2>
+        <h5 id="result"></h5>
+        <button onclick="dialResult.close(); playButton()">Close</button>
+    </dialog>
+
+    <dialog id="helper">
+        <h2>Help</h2>
+        <h4>This is a World War 2 Simulator and this is how it works:</h4>
+        <ul>
+            <li>The points of Axis and Allies will be added up and be tested one the 'Start Battle' is clicked.</li>
+            <li>The tech can be added in the Technological Research button and is equal to 7 normal points.</li>
+        </ul>
+        <p>You can decide which side will Win!</p>
+        <button onclick="document.getElementById('helper').close(); playButton()">Close</button>
+    </dialog>
+    <script>
+        let sound = false
+        const value1 = document.getElementById("value1")
+        const value2 = document.getElementById("value2")
+        const value3 = document.getElementById("value3")
+        const value4 = document.getElementById("value4")
+        const value5 = document.getElementById("value5")
+        const value6 = document.getElementById("value6")
+
+        const dialResult = document.getElementById("dialResult")
+        const determine = dialResult.querySelector("#determine")
+        const result = dialResult.querySelector("#result")
+
+        let score1 = 30
+        let score2 = 17
+        let score3 = 25
+        let score4 = 35
+        let score5 = 25
+        let score6 = 12
+
+        let tech1 = 0
+        let tech2 = 0
+        let tech3 = 0
+        let tech4 = 0
+        let tech5 = 0
+        let tech6 = 0
+
+        function playButton() {
+            if (!sound){
+            const click = new Audio("bubble-pop-06-351337.mp3")
+            click.play()
+            }
+        }
+
+
+        function economy(button) {
+            playButton()
+            let parentClass = button.parentNode.className
+            switch(parentClass) {
+                case "germany":
+                    score1 += 5
+                    value1.innerHTML = "Score: " + score1
+                    break
+                case "italy":
+                    score2 += 5
+                    value2.innerHTML = "Score: " + score2
+                    break
+                case "japan":
+                    score3 += 5
+                    value3.innerHTML = "Score: " + score3
+                    break
+                case "UK":
+                    score4 += 5
+                    value4.innerHTML = "Score: " + score4
+                    break
+                case "france":
+                    score5 += 5
+                    value5.innerHTML = "Score: " + score5
+                    break
+                case "china":
+                    score6 += 5
+                    value6.innerHTML = "Score: " + score6
+                    break
+
+                
+            }
+            button.style.backgroundColor = "lime"
+            button.innerHTML = "+5 for economy"
+            
+            let timeout = setTimeout(function() {
+                button.style.backgroundColor = ""
+                button.innerHTML = "Economic Developement +5"
+            }, 200)
+        }
+
+        function recruitment(button) {
+            playButton()
+            let parentClass = button.parentNode.className
+            switch(parentClass) {
+                case "germany":
+                    score1 += 10
+                    value1.innerHTML = "Score: " + score1
+                    break
+                case "italy":
+                    score2 += 10
+                    value2.innerHTML = "Score: " + score2
+                    break
+                case "japan":
+                    score3 += 10
+                    value3.innerHTML = "Score: " + score3
+                    break
+                case "UK":
+                    score4 += 10
+                    value4.innerHTML = "Score: " + score4
+                    break
+                case "france":
+                    score5 += 10
+                    value5.innerHTML = "Score: " + score5
+                    break
+                case "china":
+                    score6 += 10
+                    value6.innerHTML = "Score: " + score6
+                    break
+
+                default:
+
+                
+            }
+            button.style.backgroundColor = "lime"
+            button.innerHTML = "+10 for recruitment"
+            
+            let timeout = setTimeout(function() {
+                button.style.backgroundColor = ""
+                button.innerHTML = "Recruitment +10"
+            }, 200)
+        }
+
+        function newTech(button) {
+            playButton()
+            let parentClass = button.parentNode.className
+            switch(parentClass) {
+                case "germany":
+                    tech1 += 1
+                    value1.innerHTML = "Score: " + score1 + ", Tech: " + tech1
+                    break
+                case "italy":
+                    tech2 += 1
+                    value2.innerHTML = "Score: " + score2 + ", Tech: " + tech2
+                    break
+                case "japan":
+                    tech3 += 1
+                    value3.innerHTML = "Score: " + score3 + ", Tech: " + tech3
+                    break
+                case "UK":
+                    tech4 += 1
+                    value4.innerHTML = "Score: " + score4 + ", Tech: " + tech4
+                    break
+                case "france":
+                    tech5 += 1
+                    value5.innerHTML = "Score: " + score5 + ", Tech: " + tech5
+                    break
+                case "china":
+                    tech6 += 1
+                    value6.innerHTML = "Score: " + score6 + ", Tech: " + tech6
+                    break
+
+                
+            }
+            button.style.backgroundColor = "lime"
+            button.innerHTML = "+1 for tech"
+            
+            let timeout = setTimeout(function() {
+                button.style.backgroundColor = ""
+                button.innerHTML = "Technological Research +1 tech"
+
+            }, 300)
+        }
+
+        function fight() {
+            if (!sound) {
+            const fighto = new Audio("battle-rifle-42734.mp3")
+            }
+            fighto.volume = 0.2
+            fighto.play()
+            let score1res = score1 + (tech1 * 7)
+            let score2res = score2 + (tech2 * 7)
+            let score3res = score3 + (tech3 * 7)
+            let score4res = score4 + (tech4 * 7)
+            let score5res = score5 + (tech5 * 7)
+            let score6res = score6 + (tech6 * 7)
+
+            let axis = score1res + score2res + score3res
+            let allies = score4res + score5res + score6res
+
+            let winner;
+
+            
+                if (axis > allies) {
+                    determine.innerHTML = "The Axis won!"
+                    result.innerHTML = axis + " > " + allies
+                }
+
+                else if (axis < allies) {
+                    determine.innerHTML = "The Allies won!"
+                    result.innerHTML = allies + " > " + axis
+                }
+
+                else {
+                    determine.innerHTML = "It is a tie!"
+                    result.innerHTML = allies + " = " + axis
+                }
+                dialResult.showModal()
+            
+
+        }
+
+        function soundo(button) {
+            sound = true
+            button.innerHTML = "Add sound"
+            button.onclick = function() {
+                sound = false
+                button.innerHTML = "Remove Sound"
+                button.onclick = function() {
+                    sound = true
+                    soundo()
+                }
+            }
+        }
+
+
+
+
+    </script>
+</body>
+</html>
