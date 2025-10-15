@@ -34,6 +34,7 @@
             background-color: rgba(255,255,255, 0.4);
             border: 1.5px solid rgba(0, 0, 0, 0.4);
             border-radius: 7px;
+            width: 80%;
         }
 
         button:hover {
@@ -52,7 +53,15 @@
             background-image: linear-gradient(to right, rgba(255,255,255,0.95), rgba(200,200,200,0.85)) ;
         }
 
+        .axis, .ally {
+            display: flex;
+        }
 
+        .axis h2, .ally h2, .axis hr, .ally hr {
+            margin: 10px;
+        }
+
+      
 
     </style>
 </head>
@@ -65,59 +74,61 @@
     </nav>
     <div class="axis">
         <h2>The Axis</h2>
+        <br>
         <hr>
-        <nav class="germany">
-        <h3 id="value1">Score: 30</h3>
+        <br>
+        <div class="germany">
+        <h3 id="value1">Score: 30, Tech: 0</h3>
         <h3>Germany</h3>
         <button onclick="economy(this)">Economic Development +5</button>
         <button onclick="recruitment(this)">Recruitment +10</button>
         <button onclick="newTech(this)">Technological Research +1 tech</button>
 
-        </nav>
-        <nav class="italy">
-            <h3 id="value2">Score: 17</h3>
+        </div>
+        <div class="italy">
+            <h3 id="value2">Score: 17, Tech: 0</h3>
         <h3>Italy</h3>
         <button onclick="economy(this)">Economic Development +5</button>
         <button onclick="recruitment(this)">Recruitment +10</button>
         <button onclick="newTech(this)">Technological Research +1 tech</button>
 
-        </nav>
-        <nav class="japan">
-            <h3 id="value3">Score: 25</h3>
+        </div>
+        <div class="japan">
+            <h3 id="value3">Score: 25, Tech: 0</h3>
         <h3>Japan</h3>
         <button onclick="economy(this)">Economic Development +5</button>
         <button onclick="recruitment(this)">Recruitment +10</button>
         <button onclick="newTech(this)">Technological Research +1 tech</button>
 
-        </nav>
+        </div>
     </div>
 
     <div class="ally">
         <h2>The Allies</h2>
         <hr>
-        <nav class="UK">
-            <h3 id="value4">Score: 35</h3>
+        <div class="UK">
+            <h3 id="value4">Score: 35, Tech: 0</h3>
         <h3>United Kingdom</h3>
         <button onclick="economy(this)">Economic Development +5</button>
         <button onclick="recruitment(this)">Recruitment +10</button>
         <button onclick="newTech(this)">Technological Research +1 tech</button>
 
-        </nav>
-        <nav class="france">
-            <h3 id="value5">Score: 25</h3>
+        </div>
+        <div class="france">
+            <h3 id="value5">Score: 25, Tech: 0</h3>
         <h3>France</h3>
         <button onclick="economy(this)">Economic Development +5</button>
         <button onclick="recruitment(this)">Recruitment +10</button>
         <button onclick="newTech(this)">Technological Research +1 tech</button>
-        </nav>
-        <nav class="china">
-            <h3 id="value6">Score: 12</h3>
+        </div>
+        <div class="china">
+            <h3 id="value6">Score: 12, Tech: 0</h3>
         <h3>China</h3>
         <button onclick="economy(this)">Economic Development +5</button>
         <button onclick="recruitment(this)">Recruitment +10</button>
         <button onclick="newTech(this)">Technological Research +1 tech</button>
         
-        </nav>
+        </div>
     </div>
 
     <dialog id="dialResult">
@@ -177,27 +188,27 @@
             switch(parentClass) {
                 case "germany":
                     score1 += 5
-                    value1.innerHTML = "Score: " + score1
+                    value1.innerHTML = "Score: " + score1 + ", Tech: " + tech1
                     break
                 case "italy":
                     score2 += 5
-                    value2.innerHTML = "Score: " + score2
+                    value2.innerHTML = "Score: " + score2 + ", Tech: " + tech2
                     break
                 case "japan":
                     score3 += 5
-                    value3.innerHTML = "Score: " + score3
+                    value3.innerHTML = "Score: " + score3 + ", Tech: " + tech3
                     break
                 case "UK":
                     score4 += 5
-                    value4.innerHTML = "Score: " + score4
+                    value4.innerHTML = "Score: " + score4 + ", Tech: " + tech4
                     break
                 case "france":
                     score5 += 5
-                    value5.innerHTML = "Score: " + score5
+                    value5.innerHTML = "Score: " + score5 + ", Tech: " + tech5
                     break
                 case "china":
                     score6 += 5
-                    value6.innerHTML = "Score: " + score6
+                    value6.innerHTML = "Score: " + score6 + ", Tech: " + tech6
                     break
 
                 
@@ -217,27 +228,27 @@
             switch(parentClass) {
                 case "germany":
                     score1 += 10
-                    value1.innerHTML = "Score: " + score1
+                    value1.innerHTML = "Score: " + score1 + ", Tech: " + tech1
                     break
                 case "italy":
                     score2 += 10
-                    value2.innerHTML = "Score: " + score2
+                    value2.innerHTML = "Score: " + score2 + ", Tech: " + tech2
                     break
                 case "japan":
                     score3 += 10
-                    value3.innerHTML = "Score: " + score3
+                    value3.innerHTML = "Score: " + score3 + ", Tech: " + tech3
                     break
                 case "UK":
                     score4 += 10
-                    value4.innerHTML = "Score: " + score4
+                    value4.innerHTML = "Score: " + score4 + ", Tech: " + tech4
                     break
                 case "france":
                     score5 += 10
-                    value5.innerHTML = "Score: " + score5
+                    value5.innerHTML = "Score: " + score5 + ", Tech: " + tech5
                     break
                 case "china":
                     score6 += 10
-                    value6.innerHTML = "Score: " + score6
+                    value6.innerHTML = "Score: " + score6 + ", Tech: " + tech6
                     break
 
                 default:
@@ -297,10 +308,10 @@
         function fight() {
             if (!sound) {
             const fighto = new Audio("battle-rifle-42734.mp3")
-                 fighto.volume = 0.2
+            
+            fighto.volume = 0.2
             fighto.play()
             }
-           
             let score1res = score1 + (tech1 * 7)
             let score2res = score2 + (tech2 * 7)
             let score3res = score3 + (tech3 * 7)
@@ -310,8 +321,75 @@
 
             let axis = score1res + score2res + score3res
             let allies = score4res + score5res + score6res
+            while (axis > 0 && allies > 0) {
+            if (score1res > score4res ) {
+                score1res -= score4res
+                score4res = 0
+            }
 
-            let winner;
+            if (score1res < score4res) {
+                score4res -= score1res
+            }
+
+            if (score1res == score4res) {
+                score4res = 0
+                score1res = 0
+            }
+
+            if (score2res > score5res ) {
+                score2res -= score5res
+                score5res = 0
+            }
+
+            if (score2res < score5res) {
+                score2res -= score5res
+            }
+
+            if (score2res == score5res) {
+                score2res = 0
+                score5res = 0
+            }
+
+            if (score2res > score5res ) {
+                score2res -= score5res
+                score5res = 0
+            }
+
+            if (score2res < score5res) {
+                score2res -= score5res
+            }
+
+            if (score2res == score5res) {
+                score2res = 0
+                score5res = 0
+            }
+
+            if (score3res > score6res ) {
+                score3res -= score6res
+                score6res = 0
+            }
+
+            if (score3res < score6res) {
+                score3res -= score6res
+            }
+
+            if (score3res == score6res) {
+                score3res = 0
+                score6res = 0
+            }
+
+            axis = score1res + score2res + score3res
+            allies = score4res + score5res + score6res
+
+       
+        }
+
+            
+            
+            
+
+            
+       
 
             
                 if (axis > allies) {
@@ -339,10 +417,7 @@
             button.onclick = function() {
                 sound = false
                 button.innerHTML = "Remove Sound"
-                button.onclick = function() {
-                    sound = true
-                    soundo()
-                }
+                button.onclick = function() { soundo(this) }
             }
         }
 
